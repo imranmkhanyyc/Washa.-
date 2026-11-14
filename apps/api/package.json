@@ -1,0 +1,27 @@
+{
+  "name": "@washa/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.4.0",
+    "@washa/core": "workspace:*",
+    "@washa/db": "workspace:*",
+    "drizzle-orm": "0.36.4",
+    "fastify": "5.1.0",
+    "pg": "8.13.1",
+    "pg-boss": "10.1.5",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/pg": "8.11.10"
+  }
+}
