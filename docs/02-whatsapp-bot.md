@@ -66,13 +66,13 @@ MENU → TRACK_ORDER | HANDOFF
 `order_paid` · `rider_on_the_way` · `order_delivered_confirm` · `callback_ack` · `payment_failed_retry` · `tier_upgrade` · `battery_health_reminder` (marketing) · `daily_owner_report`
 
 ## Acceptance criteria
-- [ ] A new number completes consent → profile → match by car → offer → location → summary in ≤ 12 messages from us
-- [ ] A known number skips profile and sees “Karibu back, {name}”
-- [ ] Photo of an NS70 label → correct size suggested and confirmed
-- [ ] Ambiguous fitment asks exactly one clarifying question
-- [ ] Out-of-stock size → offers nearest compatible size or a call-back, never an empty list
-- [ ] Gold/Platinum B2B number sees tier prices and delivery discount in the offer and summary
-- [ ] “STOP” sets `opted_out_at`, and no further non-transactional messages go out
-- [ ] Handoff silences the bot until released
-- [ ] Duplicate webhook delivery produces no duplicate messages or orders
-- [ ] `pnpm simulate:order` runs the whole chat with fake webhooks and passes
+- [x] A new number completes consent → profile → match by car → offer → location → summary in ≤ 12 messages from us
+- [x] A known number skips profile and sees “Karibu back, {name}”
+- [x] Photo of an NS70 label → correct size suggested and confirmed (with the offline vision stub; still to verify against real Claude vision with real label photos)
+- [x] Ambiguous fitment asks exactly one clarifying question
+- [x] Out-of-stock size → offers nearest compatible size or a call-back, never an empty list
+- [x] Gold/Platinum B2B number sees tier prices and delivery discount in the offer and summary
+- [x] “STOP” sets `opted_out_at`, and no further non-transactional messages go out
+- [x] Handoff silences the bot until released
+- [x] Duplicate webhook delivery produces no duplicate messages or orders
+- [x] `pnpm simulate:order` runs the whole chat with fake webhooks and passes

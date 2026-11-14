@@ -60,11 +60,11 @@ Base URL: `MPESA_BASE_URL` (sandbox `https://sandbox.safaricom.co.ke`, productio
 - **Reconciliation:** a nightly job compares paid orders against the day’s M-Pesa statement export (manual upload in Phase 1) and lists mismatches on the dashboard.
 
 ## Acceptance criteria
-- [ ] Sandbox STK push reaches a test phone and the callback marks the order `PAID`
-- [ ] Customer cancels on the phone → `PAYMENT_FAILED` + retry buttons in chat
-- [ ] Dropped callback → STK query resolves the status within 2 min
-- [ ] Same callback delivered twice → one payment, one receipt message
-- [ ] Amount mismatch → not paid, staff alerted
-- [ ] Expired order releases its stock reservation
-- [ ] Paid order appears on the packing screen in real time (stub screen OK in this module)
-- [ ] `pnpm simulate:order` covers success, cancel, timeout and duplicate paths
+- [ ] Sandbox STK push reaches a test phone and the callback marks the order `PAID` — **blocked: needs Daraja sandbox consumer key/secret + passkey and a public callback URL.** The same path is covered offline by `test/payments.test.ts` and `pnpm simulate:order`.
+- [x] Customer cancels on the phone → `PAYMENT_FAILED` + retry buttons in chat
+- [x] Dropped callback → STK query resolves the status within 2 min
+- [x] Same callback delivered twice → one payment, one receipt message
+- [x] Amount mismatch → not paid, staff alerted
+- [x] Expired order releases its stock reservation
+- [x] Paid order appears on the packing screen in real time (stub screen OK in this module)
+- [x] `pnpm simulate:order` covers success, cancel, timeout and duplicate paths

@@ -71,11 +71,14 @@ Open decisions live in `docs/05-open-questions.md`. Never invent a business rule
 - Commit per working slice with clear messages. Update the module’s checklist in its spec file as items pass.
 - When finished with a module, write a short `docs/changelog.md` entry: what shipped, what’s stubbed, what’s next.
 
-## Commands (fill in as the repo is created)
+## Commands
 ```
+cp .env.example .env   # fill in; DATABASE_URL is the only one needed locally
 pnpm i
-pnpm db:migrate
-pnpm dev            # api + web
-pnpm test
-pnpm simulate:order # full WhatsApp → STK → paid loop with fake webhooks
+pnpm db:migrate        # apply Drizzle migrations (packages/db/migrations)
+pnpm db:seed           # placeholder catalogue, fitments, tiers, zones (idempotent)
+pnpm dev               # api (:3001) + web (:3000)
+pnpm test              # core unit tests + api integration tests (uses TEST_DATABASE_URL, wiped each run)
+pnpm simulate:order    # full WhatsApp → STK → paid loop with fake webhooks (uses SIM_DATABASE_URL, default washa_sim)
+pnpm db:generate       # new migration after editing packages/db/src/schema.ts
 ```

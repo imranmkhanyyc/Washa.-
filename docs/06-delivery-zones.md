@@ -66,10 +66,10 @@ Plus `delivery_settings` (single row): warehouse lat/lng, peak windows, bulk_thr
 For every delivery, store the zone, quoted ETA, actual ride time, distance and rider. After two weeks of pilot data the dashboard shows **actual vs promised time per zone**, so the real fees and ETAs get set from evidence, not guesses.
 
 ## Acceptance criteria
-- [ ] A pin in each ring returns the right zone, fee and ETA
-- [ ] A polygon drawn over part of ring B overrides it
-- [ ] 3 batteries → extra-unit fee applied and the order is split into 2 rider trips
-- [ ] A B2B order of ≥ 6 units is routed to a scheduled bulk run
-- [ ] Gold (50% off) and Platinum (free) delivery discounts apply correctly after surcharges
-- [ ] Out-of-area pin → call-back/pickup offer, no price shown
-- [ ] Changing a zone fee doesn’t change the fee on already-priced orders
+- [x] A pin in each ring returns the right zone, fee and ETA
+- [x] A polygon drawn over part of ring B overrides it
+- [x] 3 batteries → extra-unit fee applied and the order is split into 2 rider trips
+- [x] A B2B order of ≥ 6 units is routed to a scheduled bulk run
+- [x] Gold (50% off) and Platinum (free) delivery discounts apply correctly after surcharges
+- [x] Out-of-area pin → call-back/pickup offer, no price shown
+- [x] Changing a zone fee doesn’t change the fee on already-priced orders

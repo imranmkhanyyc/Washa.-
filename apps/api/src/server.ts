@@ -1,5 +1,7 @@
-import { buildApp } from "./app";
-import { createProdDeps } from "./wiring";
+import { loadDotEnv } from "@washa/db/env";
+loadDotEnv();
+const { buildApp } = await import("./app");
+const { createProdDeps } = await import("./wiring");
 
 const consoleLog = {
   info: (o: object | string, m?: string) => console.log(m ?? "", typeof o === "string" ? o : JSON.stringify(o)),

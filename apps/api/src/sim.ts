@@ -130,3 +130,19 @@ export async function resetDb(db: DB) {
 export const bodyOf = (m: OutMessage | undefined) => (m && "body" in m ? m.body : "");
 export const idsOf = (m: OutMessage | undefined) =>
   !m ? [] : m.kind === "buttons" ? m.buttons.map((b) => b.id) : m.kind === "list" ? m.rows.map((r) => r.id) : [];
+
+/** Creates the database in `url` if it doesn't exist, then applies migrations. */
+export async function ensureDatabase(url: string) {
+  const pg = (await import("pg")).default;
+  const u = new URL(url);
+  const name = u.pathname.slice(1);
+  const admin = new URL(url);
+  admin.pathname = "/postgres";
+  const c = new pg.Client({ connectionString: admin.toString() });
+  await c.connect();
+  const r = await c.query("select 1 from pg_database where datname = $1", [name]);
+  if (r.rowCount === 0) await c.query(`create database "${name.replace(/"/g, "")}"`);
+  await c.end();
+  const { runMigrations } = await import("@washa/db/migrate");
+  await runMigrations(url);
+}

@@ -7,7 +7,7 @@ import { toMpesaMsisdn, type Actor } from "@washa/core";
 import * as s from "@washa/db/schema";
 import type { Deps } from "../deps";
 import {
-  OutOfStockError, commitStock, loadTierLabel, recomputeTier, releaseStock, reserveStock, transitionOrder,
+  OutOfStockError, commitStock, loadTierConfigs, loadTierLabel, recomputeTier, releaseStock, reserveStock, transitionOrder,
 } from "../orders/service";
 import { alertStaff, sendToCustomer } from "../notify";
 import { BTN, T, etaWords, failureReason } from "../bot/copy";
@@ -174,7 +174,11 @@ async function finalizeSuccess(
       await commitStock(tx, o.id);
       const change = await recomputeTier(tx, o.customerId, now);
       const [c] = await tx.select({ track: s.customers.tierTrack }).from(s.customers).where(eq(s.customers.id, o.customerId));
-      return { kind: "paid", orderId: o.id, customerId: o.customerId, upgradedTo: change.kind === "upgrade" ? change.to : null, track: c?.track ?? null };
+      // Only tell the customer about real upgrades, not about landing on the base tier with a first order.
+      const cfgs = (await loadTierConfigs(tx)).filter((t) => t.track === c?.track && t.active);
+      const baseRank = Math.min(...cfgs.map((t) => t.rank));
+      const upgraded = change.kind === "upgrade" && (cfgs.find((t) => t.tier === change.to)?.rank ?? baseRank) > baseRank ? change.to : null;
+      return { kind: "paid", orderId: o.id, customerId: o.customerId, upgradedTo: upgraded, track: c?.track ?? null };
     });
   } catch (err: any) {
     if (err?.code === "23505" && String(err?.constraint ?? "").includes("receipt")) {

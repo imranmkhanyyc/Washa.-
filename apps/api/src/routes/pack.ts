@@ -31,7 +31,10 @@ export async function packQueue(deps: Deps) {
 }
 
 export async function packRoutes(app: FastifyInstance, deps: Deps) {
-  app.get("/pack/queue", async () => ({ orders: await packQueue(deps) }));
+  app.get("/pack/queue", async (_req, reply) => {
+    reply.header("Access-Control-Allow-Origin", "*");
+    return { orders: await packQueue(deps) };
+  });
 
   app.get("/pack/stream", (req, reply) => {
     reply.raw.writeHead(200, {
