@@ -174,7 +174,9 @@ describe("WhatsApp bot · docs/02 acceptance criteria", () => {
     expect(unauth.statusCode).toBe(401);
     const rel = await h.sim.app.inject({ method: "POST", url: `/admin/conversations/${conv!.conversations.id}/release`, headers: { authorization: "Bearer admin-token" } });
     expect(rel.statusCode).toBe(200);
-    expect((await cu.text("Hi")).replies.length).toBe(1);
+    const back = (await cu.text("Hi")).replies;
+    expect(back).toHaveLength(1);
+    expect(bodyOf(back[0])).toContain("Karibu back");
   });
 
   it("handoff triggers: complaint keywords, returns/warranty, two failed parses, low confidence", async () => {

@@ -263,6 +263,10 @@ async function tryMenuText(c: Ctx, t: string, fromGreeting: boolean): Promise<bo
     case "talk_to_person": await handoff(c, "customer asked for a person"); return true;
     case "complaint": await handoff(c, "complaint"); return true;
     case "returns_warranty": await handoff(c, "returns / warranty"); return true;
+    case "greeting":
+      if (fromGreeting) return false;
+      await showMenu(c, c.customer.name ? T.menuBack(firstName(c.customer)) : T.menu);
+      return true;
     default: return false;
   }
 }
