@@ -1,0 +1,22 @@
+{
+  "name": "washa",
+  "private": true,
+  "packageManager": "pnpm@10.28.0",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter @washa/api --filter @washa/web dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r --workspace-concurrency=1 test",
+    "db:generate": "pnpm --filter @washa/db generate",
+    "db:migrate": "pnpm --filter @washa/db migrate",
+    "db:seed": "pnpm --filter @washa/db seed",
+    "simulate:order": "tsx scripts/simulate-order.ts"
+  },
+  "devDependencies": {
+    "@types/node": "20.17.6",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3",
+    "vitest": "2.1.5"
+  }
+}
